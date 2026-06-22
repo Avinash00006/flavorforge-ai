@@ -1,3 +1,4 @@
+// Import shared layout components
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -6,16 +7,49 @@ export default function Dashboard() {
     <>
       <Navbar />
 
-      <main className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-5xl font-bold text-white">
-          Dashboard
-        </h1>
+      <main className="min-h-screen px-6 py-20">
 
-        <p className="mt-6 text-gray-400 max-w-2xl">
-          This dashboard will host AI content generation,
-          project management, and analytics features in future
-          development phases.
-        </p>
+        <div className="max-w-6xl mx-auto">
+
+          {/* Dashboard Heading */}
+          <h1 className="text-5xl font-bold text-foreground">
+            Dashboard
+          </h1>
+
+          <p className="mt-4 text-gray-500 dark:text-gray-400">
+            Manage your AI generated content and track activity.
+          </p>
+
+          {/* Statistics Cards */}
+          <div className="grid md:grid-cols-3 gap-6 mt-12">
+
+            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
+              <h2 className="text-3xl font-bold">0</h2>
+
+              <p className="mt-2 text-gray-500 dark:text-gray-400">
+                Generated Descriptions
+              </p>
+            </div>
+
+            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
+              <h2 className="text-3xl font-bold">0</h2>
+
+              <p className="mt-2 text-gray-500 dark:text-gray-400">
+                Saved Drafts
+              </p>
+            </div>
+
+            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
+              <h2 className="text-3xl font-bold">0</h2>
+
+              <p className="mt-2 text-gray-500 dark:text-gray-400">
+                AI Requests
+              </p>
+            </div>
+
+          </div>
+
+        </div>
       </main>
 
       <Footer />

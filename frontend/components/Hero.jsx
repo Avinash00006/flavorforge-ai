@@ -1,15 +1,16 @@
 export default function Hero() {
   return (
     <section className="text-center py-20 px-6">
-      <h1 className="text-5xl font-bold text-white">
+      <h1 className="text-5xl font-bold text-black">
         FlavorForge AI
       </h1>
 
-      <h2 className="mt-4 text-2xl text-gray-300">
+      {/* Hero subtitle */}
+      <h2 className="mt-4 text-2xl font-medium text-black">
         AI Product Intelligence for Modern Food Brands
       </h2>
 
-      <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-400">
+      <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-700 dark:text-gray-400">
         Transform food products into compelling brands using
         AI-powered content generation, product descriptions,
         and marketing copy.
