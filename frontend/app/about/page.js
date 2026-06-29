@@ -28,32 +28,32 @@ export default function About() {
           {/* Feature Cards */}
           <div className="grid md:grid-cols-3 gap-6 mt-16">
 
-            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
-              <h2 className="text-xl font-semibold">
+            <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-xs">
+              <h2 className="text-xl font-bold text-zinc-950 dark:text-zinc-50">
                 Product Descriptions
               </h2>
 
-              <p className="mt-3 text-gray-500 dark:text-gray-400">
+              <p className="mt-3 text-zinc-600 dark:text-zinc-400 text-sm text-left">
                 Generate engaging food product descriptions instantly.
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
-              <h2 className="text-xl font-semibold">
+            <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-xs">
+              <h2 className="text-xl font-bold text-zinc-950 dark:text-zinc-50">
                 Brand Positioning
               </h2>
 
-              <p className="mt-3 text-gray-500 dark:text-gray-400">
+              <p className="mt-3 text-zinc-600 dark:text-zinc-400 text-sm text-left">
                 Build a unique identity for your food brand.
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-gray-100 dark:bg-gray-900">
-              <h2 className="text-xl font-semibold">
+            <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/40 shadow-xs">
+              <h2 className="text-xl font-bold text-zinc-950 dark:text-zinc-50">
                 Marketing Copy
               </h2>
 
-              <p className="mt-3 text-gray-500 dark:text-gray-400">
+              <p className="mt-3 text-zinc-600 dark:text-zinc-400 text-sm text-left">
                 Create marketing content optimized for sales.
               </p>
             </div>

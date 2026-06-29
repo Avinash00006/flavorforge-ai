@@ -1,0 +1,14 @@
+# Local environment configurations containing secrets
+.env
+
+# Installed node packages
+node_modules/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db

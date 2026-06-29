@@ -18,46 +18,59 @@ export default function Input({
   value,
   onChange,
   error,
+  id,
 }) {
+  // Generate a standard web-safe ID from the label if no explicit ID is provided
+  const inputId = id || (label ? label.toLowerCase().replace(/[^a-z0-9]+/g, "-") : undefined);
+
   return (
-    <div className="flex flex-col gap-2 w-full max-w-md">
+    <div className="flex flex-col gap-1.5 w-full max-w-md">
       {label && (
-        <label className="font-medium text-black dark:text-white">
+        <label
+          htmlFor={inputId}
+          className="text-sm font-semibold text-zinc-700 dark:text-zinc-300"
+        >
           {label}
         </label>
       )}
 
-      {/* Input field */}
-<input
-  type={type}
-  value={value}
-  onChange={onChange}
-  placeholder={placeholder}
-  className="
-    border
-    border-gray-300
-    dark:border-gray-600
-    rounded-lg
-    px-4
-    py-3
+      <input
+        id={inputId}
+        name={inputId}
+        type={type}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="
+          border
+          border-zinc-200
+          dark:border-zinc-800
+          rounded-lg
+          px-4
+          py-2.5
+          text-sm
 
-    bg-white
-    dark:bg-gray-800
+          bg-white
+          dark:bg-zinc-900
 
-    text-black
-    dark:text-white
+          text-zinc-900
+          dark:text-zinc-50
+          placeholder-zinc-400
+          dark:placeholder-zinc-500
 
-    focus:outline-none
-    focus:ring-2
-    focus:ring-orange-500
-  "
-/>
+          focus:outline-none
+          focus:ring-2
+          focus:ring-orange-500/20
+          focus:border-orange-500
+          transition-all
+        "
+      />
 
       {error && (
-        <p className="text-red-500 text-sm">
+        <p className="text-red-500 text-xs mt-0.5">
           {error}
         </p>
       )}
     </div>
   );
-}
+}

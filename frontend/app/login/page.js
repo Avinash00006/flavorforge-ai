@@ -11,14 +11,14 @@ export default function Login() {
       <main className="min-h-screen flex items-center justify-center px-6">
 
         {/* Login Card */}
-        <div className="w-full max-w-md p-8 rounded-xl bg-white dark:bg-gray-900
-            border border-gray-200 dark:border-gray-800 shadow-lg">
+        <div className="w-full max-w-md p-8 rounded-xl bg-zinc-50 dark:bg-zinc-900/40
+            border border-zinc-200 dark:border-zinc-800 shadow-md">
 
-          <h1 className="text-3xl font-bold text-black dark:text-white">
+          <h1 className="text-3xl font-extrabold tracking-tight text-zinc-950 dark:text-zinc-50">
             Welcome Back
           </h1>
 
-          <p className="text-center mt-3 text-gray-700 dark:text-gray-300">
+          <p className="mt-3 text-zinc-600 dark:text-zinc-400 text-sm">
             Login to continue using FlavorForge AI.
           </p>
 

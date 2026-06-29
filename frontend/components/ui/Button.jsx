@@ -19,11 +19,11 @@ export default function Button({
 }) {
   const variants = {
     primary:
-      "bg-orange-500 hover:bg-orange-600 text-white",
+      "bg-orange-500 hover:bg-orange-600 text-white shadow-xs active:scale-98",
     secondary:
-      "bg-gray-700 hover:bg-gray-800 text-white",
+      "bg-zinc-800 dark:bg-zinc-200 text-zinc-100 dark:text-zinc-900 hover:bg-zinc-900 dark:hover:bg-zinc-100 shadow-xs active:scale-98",
     outline:
-      "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white",
+      "border border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white active:scale-98",
   };
 
   const sizes = {

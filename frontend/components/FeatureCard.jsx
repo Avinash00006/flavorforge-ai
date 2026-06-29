@@ -6,24 +6,25 @@ export default function FeatureCard({
     <div
       className="
         border
-        border-gray-200
-        dark:border-gray-700
+        border-zinc-200
+        dark:border-zinc-800
 
         rounded-lg
         p-6
 
         bg-white
-        dark:bg-zinc-900
+        dark:bg-zinc-900/40
+        shadow-xs
       "
     >
       {/* Card Title */}
       <h3
         className="
           text-xl
-          font-semibold
+          font-bold
 
-          text-black
-          dark:text-white
+          text-zinc-950
+          dark:text-zinc-50
         "
       >
         {title}
@@ -33,13 +34,14 @@ export default function FeatureCard({
       <p
         className="
           mt-3
+          text-sm
 
-          text-gray-700
-          dark:text-gray-400
+          text-zinc-600
+          dark:text-zinc-400
         "
       >
         {description}
       </p>
     </div>
   );
-}
+}

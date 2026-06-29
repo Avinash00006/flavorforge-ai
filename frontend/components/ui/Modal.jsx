@@ -35,14 +35,14 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex justify-center items-center z-50">
-      <div className="bg-white text-black rounded-xl p-6 w-[90%] max-w-md shadow-xl">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">{title}</h2>
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 backdrop-blur-xs">
+      <div className="bg-white dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 w-[90%] max-w-md shadow-xl transition-colors duration-200">
+        <div className="flex justify-between items-center mb-4 pb-2 border-b border-zinc-150 dark:border-zinc-800">
+          <h2 className="text-xl font-bold tracking-tight">{title}</h2>
 
           <button
             onClick={onClose}
-            className="text-red-500 text-lg"
+            className="text-zinc-400 hover:text-red-500 dark:text-zinc-500 dark:hover:text-red-400 transition-colors text-lg"
           >
             ✕
           </button>
@@ -52,4 +52,4 @@ export default function Modal({
       </div>
     </div>
   );
-}
+}

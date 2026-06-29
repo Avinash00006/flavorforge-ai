@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
 
       <section className="max-w-6xl mx-auto px-6 pb-20">
-        <h2 className="text-3xl font-bold text-center text-white mb-10">
+        <h2 className="text-3xl font-bold text-center text-black dark:text-white mb-10">
           Core Features
         </h2>
 

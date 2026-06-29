@@ -1,0 +1,417 @@
+{
+  "info": {
+    "_postman_id": "cb425a75-f031-4e4a-836f-9d076b334896",
+    "name": "FlavorForge AI - Week 4 API Collection",
+    "description": "Postman Collection for FlavorForge AI Week 4 Deliverables. Covers Health Check + 6 REST API endpoints (CRUD and Search/Filter). Created for Koneti Sairam Avinash (Intern ID: TBI-26100936).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": []
+        }
+      },
+      "response": [
+        {
+          "name": "Health Check Successful",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": []
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Welcome to FlavorForge AI API\",\n  \"version\": \"1.0.0\",\n  \"status\": \"Healthy\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "1. List All Content",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/content",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "List All Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/content",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"count\": 3,\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"title\": \"Tangy Mango Chilli Chutney\",\n      \"type\": \"description\",\n      \"description\": \"A gourmet condiment made from ripe mangoes and bird's eye chillies.\",\n      \"ingredients\": \"Ripe Mangoes, Bird's Eye Chilli, Vinegar, Cane Sugar, Mustard Seeds\",\n      \"targetAudience\": \"Gourmet lovers & spicy food enthusiasts\",\n      \"tone\": \"Engaging\",\n      \"generatedText\": \"Bursting with sun-ripened tropical sweetness and followed by a fiery punch of handpicked bird's eye chillies, our Tangy Mango Chilli Chutney is the perfect spread to elevate your cheese boards, grilled meats, and savory snacks.\",\n      \"status\": \"published\",\n      \"createdAt\": \"2026-06-28T07:18:22.000Z\"\n    },\n    {\n      \"id\": \"2\",\n      \"title\": \"Pure Organics Oat Milk\",\n      \"type\": \"branding\",\n      \"description\": \"Eco-friendly, unsweetened, organic oat milk for coffee and baking.\",\n      \"ingredients\": \"Organic Oats, Filtered Water, Sea Salt\",\n      \"targetAudience\": \"Health-conscious consumers & vegans\",\n      \"tone\": \"Professional\",\n      \"generatedText\": \"FlavorForge AI Brand Positioning:\\n\\n1. CORE VALUE: Sustainability-first nutrition.\\n2. EMOTIONAL HOOK: Kind to your body, gentler on the planet.\",\n      \"status\": \"draft\",\n      \"createdAt\": \"2026-06-27T07:18:22.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "2. Search Content",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/content/search?q=Mango",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content",
+            "search"
+          ],
+          "query": [
+            {
+              "key": "q",
+              "value": "Mango"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Search Results Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/content/search?q=Mango",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "Mango"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"count\": 1,\n  \"data\": [\n    {\n      \"id\": \"1\",\n      \"title\": \"Tangy Mango Chilli Chutney\",\n      \"type\": \"description\",\n      \"description\": \"A gourmet condiment made from ripe mangoes and bird's eye chillies.\",\n      \"ingredients\": \"Ripe Mangoes, Bird's Eye Chilli, Vinegar, Cane Sugar, Mustard Seeds\",\n      \"targetAudience\": \"Gourmet lovers & spicy food enthusiasts\",\n      \"tone\": \"Engaging\",\n      \"generatedText\": \"Bursting with sun-ripened tropical sweetness and followed by a fiery punch of handpicked bird's eye chillies, our Tangy Mango Chilli Chutney is the perfect spread to elevate your cheese boards, grilled meats, and savory snacks.\",\n      \"status\": \"published\",\n      \"createdAt\": \"2026-06-28T07:18:22.000Z\"\n    }\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "3. Get Single Content by ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/content/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content",
+            "1"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Get Single Success",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/content/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content",
+                "1"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": \"1\",\n    \"title\": \"Tangy Mango Chilli Chutney\",\n    \"type\": \"description\",\n    \"description\": \"A gourmet condiment made from ripe mangoes and bird's eye chillies.\",\n    \"ingredients\": \"Ripe Mangoes, Bird's Eye Chilli, Vinegar, Cane Sugar, Mustard Seeds\",\n    \"targetAudience\": \"Gourmet lovers & spicy food enthusiasts\",\n    \"tone\": \"Engaging\",\n    \"generatedText\": \"Bursting with sun-ripened tropical sweetness and followed by a fiery punch of handpicked bird's eye chillies, our Tangy Mango Chilli Chutney is the perfect spread to elevate your cheese boards, grilled meats, and savory snacks.\",\n    \"status\": \"published\",\n    \"createdAt\": \"2026-06-28T07:18:22.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "4. Create Content (Mock Generation)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Gluten-Free Almond Bread\",\n  \"type\": \"description\",\n  \"description\": \"Low carb gluten-free almond flour bread.\",\n  \"ingredients\": \"Almond Flour, Eggs, Coconut Oil, Flaxseed Meal\",\n  \"tone\": \"Engaging\",\n  \"targetAudience\": \"Celiac patients & keto dieters\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/content",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Create Content Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Gluten-Free Almond Bread\",\n  \"type\": \"description\",\n  \"description\": \"Low carb gluten-free almond flour bread.\",\n  \"ingredients\": \"Almond Flour, Eggs, Coconut Oil, Flaxseed Meal\",\n  \"tone\": \"Engaging\",\n  \"targetAudience\": \"Celiac patients & keto dieters\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/content",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content"
+              ]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Content generated and saved successfully.\",\n  \"data\": {\n    \"id\": \"1782717894860\",\n    \"title\": \"Gluten-Free Almond Bread\",\n    \"type\": \"description\",\n    \"description\": \"Low carb gluten-free almond flour bread.\",\n    \"ingredients\": \"Almond Flour, Eggs, Coconut Oil, Flaxseed Meal\",\n    \"targetAudience\": \"Celiac patients & keto dieters\",\n    \"tone\": \"Engaging\",\n    \"generatedText\": \"Discover the exquisite flavor profile of our brand-new \\\"Gluten-Free Almond Bread\\\"! Masterfully prepared using handpicked Almond Flour, Eggs, Coconut Oil, Flaxseed Meal, this delicious creation is tailored for Celiac patients & keto dieters. Curated with an engaging tone in mind...\",\n    \"status\": \"draft\",\n    \"createdAt\": \"2026-06-29T07:24:40.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "5. Update Content",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"published\",\n  \"title\": \"Gluten-Free Premium Almond Bread\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/content/1782717894860",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content",
+            "1782717894860"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Update Content Success",
+          "originalRequest": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"published\",\n  \"title\": \"Gluten-Free Premium Almond Bread\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/content/1782717894860",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content",
+                "1782717894860"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Content updated successfully.\",\n  \"data\": {\n    \"id\": \"1782717894860\",\n    \"title\": \"Gluten-Free Premium Almond Bread\",\n    \"type\": \"description\",\n    \"description\": \"Low carb gluten-free almond flour bread.\",\n    \"ingredients\": \"Almond Flour, Eggs, Coconut Oil, Flaxseed Meal\",\n    \"targetAudience\": \"Celiac patients & keto dieters\",\n    \"tone\": \"Engaging\",\n    \"generatedText\": \"Discover the exquisite flavor profile of our brand-new \\\"Gluten-Free Almond Bread\\\"! Masterfully prepared using handpicked Almond Flour, Eggs, Coconut Oil, Flaxseed Meal, this delicious creation is tailored for Celiac patients & keto dieters.\",\n    \"status\": \"published\",\n    \"createdAt\": \"2026-06-29T07:24:40.000Z\"\n  }\n}"
+        }
+      ]
+    },
+    {
+      "name": "6. Delete Content",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/content/1782717894860",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "content",
+            "1782717894860"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delete Content Success",
+          "originalRequest": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/content/1782717894860",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "content",
+                "1782717894860"
+              ]
+            }
+          },
+          "status": "No Content",
+          "code": 204,
+          "_postman_previewlanguage": "plain",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    }
+  ]
+}
