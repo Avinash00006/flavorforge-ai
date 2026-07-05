@@ -14,9 +14,13 @@ require('dotenv').config(); // Load environment variables from .env
 // Import modular routes and middlewares
 const contentRoutes = require('./routes/contentRoutes');
 const errorHandler = require('./middleware/errorHandler');
+const connectDB = require('./config/db');
 
 // Initialize the Express Application
 const app = express();
+
+// Connect to Database
+connectDB();
 
 // Determine the port to listen on (from .env or fallback to 5000)
 const PORT = process.env.PORT || 5000;

@@ -111,10 +111,10 @@ async function runTests() {
     const create = await request('POST', '/api/content', payload);
     console.log(`👉 Status: ${create.statusCode}`);
     console.log(`👉 Success: ${create.body.success}`);
-    console.log(`👉 Created ID: ${create.body.data?.id}`);
+    console.log(`👉 Created ID: ${create.body.data?.id || create.body.data?._id}`);
     console.log(`👉 Preview text: "${create.body.data?.generatedText?.substring(0, 80)}..."\n`);
     if (create.statusCode !== 201) throw new Error("Create content failed");
-    createdItemId = create.body.data.id;
+    createdItemId = create.body.data?.id || create.body.data?._id;
 
     // 4. Search items
     console.log("Test 4: GET /api/content/search?q=Almond (Search check)");
