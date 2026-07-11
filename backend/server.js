@@ -10,11 +10,17 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config(); // Load environment variables from .env
+const passport = require('passport');
+const rateLimit = require('express-rate-limit');
 
 // Import modular routes and middlewares
 const contentRoutes = require('./routes/contentRoutes');
+const authRoutes = require('./routes/authRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const connectDB = require('./config/db');
+
+// Load Passport strategy configuration
+require('./config/passportConfig');
 
 // Initialize the Express Application
 const app = express();
@@ -43,9 +49,30 @@ app.use(cors({
 // Express built-in body-parser middleware to parse incoming HTTP JSON request bodies
 app.use(express.json());
 
+// Initialize Passport middleware for sessionless social logins
+app.use(passport.initialize());
+
+// Configure Rate Limiter for Authentication endpoints
+// Limits brute force credential attempts (max 5 logins/registrations per 15 min per IP)
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes window
+  max: 5, // Limit each IP to 5 requests per 15 minutes
+  message: {
+    success: false,
+    error: {
+      message: 'Too many authentication attempts from this IP. Please try again after 15 minutes.'
+    }
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
 /**
  * Register API Routes
  */
+
+// Mount auth routing module under rate limit guards
+app.use('/api/auth', authLimiter, authRoutes);
 
 // All content management requests are handled under the /api/content base path
 app.use('/api/content', contentRoutes);

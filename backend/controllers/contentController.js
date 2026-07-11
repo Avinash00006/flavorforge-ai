@@ -17,8 +17,8 @@ const generateMockContent = require('../utils/generateContent');
  */
 const listContent = async (req, res, next) => {
   try {
-    // Query all records from ContentItem collection, sorted newest-first
-    const items = await ContentItem.find().sort({ createdAt: -1 });
+    // Query only records belonging to the logged-in user, sorted newest-first
+    const items = await ContentItem.find({ userId: req.user.id }).sort({ createdAt: -1 });
 
     // Respond with HTTP 200 (OK)
     res.status(200).json({
@@ -57,6 +57,9 @@ const searchContent = async (req, res, next) => {
       ];
     }
 
+    // Ensure the query is isolated to the logged-in user's records
+    queryObj.userId = req.user.id;
+
     // Fetch matching documents, sorted by newest
     const items = await ContentItem.find(queryObj).sort({ createdAt: -1 });
 
@@ -78,8 +81,8 @@ const getContentById = async (req, res, next) => {
   try {
     const { id } = req.params;
     
-    // Find document by Mongoose ObjectId
-    const item = await ContentItem.findById(id);
+    // Find document matching both unique ObjectId and owner's userId
+    const item = await ContentItem.findOne({ _id: id, userId: req.user.id });
 
     // If no document matches the ID, throw HTTP 404 (Not Found)
     if (!item) {
@@ -116,7 +119,7 @@ const createContent = async (req, res, next) => {
     // Mock AI text generator (integrates with Gemini in Week 7)
     const generatedText = generateMockContent(type, title, ingredients, tone, targetAudience);
 
-    // Create and save document in one step using Model.create()
+    // Create and save document with the authenticated userId attached
     const newItem = await ContentItem.create({
       title,
       type,
@@ -125,7 +128,8 @@ const createContent = async (req, res, next) => {
       targetAudience: targetAudience || "",
       tone: tone || "Engaging",
       generatedText,
-      status: "draft" // Default to draft upon creation
+      status: "draft", // Default to draft upon creation
+      userId: req.user.id // Associate content item with the authenticated user
     });
 
     // Return HTTP 201 (Created)
@@ -154,11 +158,11 @@ const updateContent = async (req, res, next) => {
       return next(error);
     }
 
-    // Find and update document.
+    // Find and update document belonging to the authenticated user.
     // { new: true } returns the updated document rather than the original one.
     // { runValidators: true } runs mongoose validation checks on the modified fields.
-    const updatedItem = await ContentItem.findByIdAndUpdate(
-      id,
+    const updatedItem = await ContentItem.findOneAndUpdate(
+      { _id: id, userId: req.user.id },
       req.body,
       { new: true, runValidators: true }
     );
@@ -188,8 +192,8 @@ const deleteContent = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // Find and delete the document in one step
-    const deletedItem = await ContentItem.findByIdAndDelete(id);
+    // Find and delete the document belonging to the authenticated user in one step
+    const deletedItem = await ContentItem.findOneAndDelete({ _id: id, userId: req.user.id });
 
     // If ID is not found, return 404
     if (!deletedItem) {

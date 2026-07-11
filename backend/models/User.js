@@ -22,7 +22,12 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, "Password is a required field"]
+    required: false // Optional for users signing in via Google OAuth
+  },
+  googleId: {
+    type: String,
+    unique: true,
+    sparse: true // Allows multiple null/missing records for standard email users
   },
   createdAt: {
     type: Date,

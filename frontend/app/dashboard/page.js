@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { Button, Input, Loader, Modal, showToast } from "../../components/ui";
+import RouteGuard from "../../components/RouteGuard";
 
 // Backend API URL configuration (port 5000 matches our Express server)
 const API_URL = "http://localhost:5000/api/content";
@@ -47,7 +48,14 @@ export default function Dashboard() {
         url = `${API_URL}/search?${params.toString()}`;
       }
 
-      const response = await fetch(url);
+      // Fetch active JWT session token
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       if (!response.ok) {
         throw new Error("Failed to load content from server");
       }
@@ -61,8 +69,26 @@ export default function Dashboard() {
     }
   };
 
-  // Fetch initial content when page mounts
+  // Fetch initial content and intercept Google OAuth parameters when page mounts
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const email = params.get('email');
+    const name = params.get('name');
+
+    if (token) {
+      // Save OAuth session keys to localStorage
+      localStorage.setItem('token', token);
+      if (email) localStorage.setItem('userEmail', email);
+      if (name) localStorage.setItem('userName', name);
+
+      // Clean address bar query string
+      window.history.replaceState({}, document.title, window.location.pathname);
+
+      // Dispatch storage event to alert UI header/Navbar
+      window.dispatchEvent(new Event('storage'));
+    }
+
     fetchContent();
   }, []);
 
@@ -105,9 +131,13 @@ export default function Dashboard() {
         tone: formTone
       };
 
+      const token = localStorage.getItem('token');
       const response = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify(payload)
       });
 
@@ -145,9 +175,13 @@ export default function Dashboard() {
   const handleToggleStatus = async (item) => {
     try {
       const newStatus = item.status === "published" ? "draft" : "published";
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/${item.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ status: newStatus })
       });
 
@@ -178,9 +212,13 @@ export default function Dashboard() {
   const handleSaveEdit = async () => {
     if (!editingItem) return;
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/${editingItem.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
         body: JSON.stringify({ generatedText: editGeneratedText })
       });
 
@@ -204,8 +242,12 @@ export default function Dashboard() {
   const handleDeleteItem = async (id) => {
     if (!confirm("Are you sure you want to delete this generated item?")) return;
     try {
+      const token = localStorage.getItem('token');
       const response = await fetch(`${API_URL}/${id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
       });
 
       if (!response.ok) {
@@ -226,7 +268,7 @@ export default function Dashboard() {
   const totalCount = items.length;
 
   return (
-    <>
+    <RouteGuard>
       <Navbar />
 
       <main className="min-h-screen px-6 py-12">
@@ -517,6 +559,6 @@ export default function Dashboard() {
       </Modal>
 
       <Footer />
-    </>
+    </RouteGuard>
   );
 }
