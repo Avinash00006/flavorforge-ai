@@ -8,7 +8,7 @@
 
 // Import Mongoose model for ContentItem
 const ContentItem = require('../models/ContentItem');
-const generateMockContent = require('../utils/generateContent');
+const generateContent = require('../utils/generateContent');
 
 /**
  * 1. GET /api/content
@@ -116,8 +116,8 @@ const createContent = async (req, res, next) => {
       return next(error);
     }
 
-    // Mock AI text generator (integrates with Gemini in Week 7)
-    const generatedText = generateMockContent(type, title, ingredients, tone, targetAudience);
+    // Call the asynchronous Google Gemini text generator
+    const generatedText = await generateContent(type, title, ingredients, tone, targetAudience);
 
     // Create and save document with the authenticated userId attached
     const newItem = await ContentItem.create({
