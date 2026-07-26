@@ -41,17 +41,17 @@ export default function Navbar() {
           FlavorForge AI
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3 sm:gap-5">
           <Link
             href="/"
-            className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-medium text-sm"
+            className="hidden sm:inline-block hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-medium text-sm"
           >
             Home
           </Link>
 
           <Link
             href="/about"
-            className="hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-medium text-sm"
+            className="hidden sm:inline-block hover:text-orange-500 dark:hover:text-orange-400 transition-colors font-medium text-sm"
           >
             About
           </Link>
