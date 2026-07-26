@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { Button, Input, Loader, Modal, showToast } from "../../components/ui";
+import { Button, EmptyState, Input, Loader, Modal, showToast } from "../../components/ui";
 import RouteGuard from "../../components/RouteGuard";
 
 // Backend API URL configuration (port 5000 matches our Express server)
@@ -343,10 +343,13 @@ export default function Dashboard() {
                 <p className="text-sm text-gray-500">Retrieving items from backend...</p>
               </div>
             ) : items.length === 0 ? (
-              <div className="py-20 border border-dashed border-gray-300 dark:border-zinc-800 rounded-xl text-center">
-                <p className="text-lg font-semibold text-gray-500 dark:text-gray-400">No content items found</p>
-                <p className="text-sm text-gray-400 mt-1">Try refining your search query or generate new content!</p>
-              </div>
+              <EmptyState
+                title="No content items found"
+                description="Try refining your search query or generate a new food brand asset today!"
+                icon="🍲"
+                actionText="✨ Generate AI Content"
+                onAction={() => setIsCreateOpen(true)}
+              />
             ) : (
               <div className="grid gap-6">
                 {items.map((item) => (
