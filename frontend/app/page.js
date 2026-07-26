@@ -18,16 +18,19 @@ export default function Home() {
           <FeatureCard
             title="Product Descriptions"
             description="Generate professional AI-powered food product descriptions."
+            icon="📄"
           />
 
           <FeatureCard
             title="Brand Positioning"
             description="Create unique branding content tailored for food businesses."
+            icon="🎯"
           />
 
           <FeatureCard
             title="Marketing Copy"
             description="Generate engaging marketing and e-commerce content instantly."
+            icon="📢"
           />
         </div>
       </section>
