@@ -69,7 +69,7 @@ export default function Dashboard() {
     }
   };
 
-  // Fetch initial content and intercept Google OAuth parameters when page mounts
+  // Intercept Google OAuth parameters when page mounts
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
@@ -88,26 +88,29 @@ export default function Dashboard() {
       // Dispatch storage event to alert UI header/Navbar
       window.dispatchEvent(new Event('storage'));
     }
-
-    fetchContent();
   }, []);
+
+  // Debounce API search queries to avoid flooding the server on every keystroke
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      fetchContent(searchQuery, selectedTypeFilter);
+    }, 300);
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery, selectedTypeFilter]);
 
   /**
    * Handles real-time search input changes
    */
   const handleSearchChange = (e) => {
-    const val = e.target.value;
-    setSearchQuery(val);
-    fetchContent(val, selectedTypeFilter);
+    setSearchQuery(e.target.value);
   };
 
   /**
    * Handles filter type dropdown changes
    */
   const handleTypeFilterChange = (e) => {
-    const val = e.target.value;
-    setSelectedTypeFilter(val);
-    fetchContent(searchQuery, val);
+    setSelectedTypeFilter(e.target.value);
   };
 
   /**
