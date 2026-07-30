@@ -130,6 +130,33 @@ FlavorForge AI aims to help small and medium food processing businesses improve 
 
 ---
 
+## 🌐 Live Production Deployments
+
+FlavorForge AI is fully deployed to production in the cloud and is publicly accessible:
+
+* **Live Frontend View:** [https://flavorforge-ai.vercel.app](https://flavorforge-ai.vercel.app) *(Vercel URL placeholder)*
+* **Live API Backend Server:** [https://flavorforge-ai-api.onrender.com](https://flavorforge-ai-api.onrender.com) *(Render URL placeholder)*
+* **Database Layer:** Hosted on **MongoDB Atlas** (Cloud Replica Set).
+
+### 🛠️ Production Environment Variable Configurations
+
+To run the application in a production environment, ensure the following parameters are populated:
+
+#### Frontend (Vercel)
+* `NEXT_PUBLIC_API_URL`: Directs API calls to the production Render server (e.g. `https://flavorforge-ai-api.onrender.com`).
+
+#### Backend (Render)
+* `FRONTEND_URL`: Points to your production Vercel frontend URL to permit CORS resource access.
+* `MONGODB_URI`: Cloud database connection string.
+* `JWT_SECRET`: Signature verification key for user security tokens.
+* `GEMINI_API_KEY`: API Key for Google Gemini text generation.
+* `GOOGLE_CALLBACK_URL`: `https://flavorforge-ai-api.onrender.com/api/auth/google/callback`
+
+### ⚠️ Known Free Tier Limitations
+Render's free tier web services spin down automatically after **15 minutes** of inactivity. The first request after a period of idleness will trigger a container cold-start, taking **30 to 60 seconds** to boot. Subsequent requests will resolve instantly.
+
+---
+
 ## 📄 License
 
 MIT License
