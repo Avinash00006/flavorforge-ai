@@ -7,7 +7,7 @@ import { Button, EmptyState, Input, Loader, Modal, showToast } from "../../compo
 import RouteGuard from "../../components/RouteGuard";
 
 // Backend API URL configuration (port 5000 matches our Express server)
-const API_URL = "http://localhost:5000/api/content";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000"}/api/content`;
 
 export default function Dashboard() {
   // State variables for managing content list and UI states
