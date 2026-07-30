@@ -17,6 +17,9 @@ import Footer from "../../components/Footer";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
+// Backend base URL configuration
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 export default function Login() {
   const router = useRouter();
   
@@ -44,7 +47,7 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -72,7 +75,7 @@ export default function Login() {
 
   const handleGoogleLogin = () => {
     // Redirect directly to the Express Google OAuth route
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = `${API_BASE}/api/auth/google`;
   };
 
   return (
