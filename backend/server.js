@@ -39,8 +39,24 @@ const PORT = process.env.PORT || 5000;
 // This is critical because our Next.js frontend runs on http://localhost:3000,
 // and without CORS configuration, modern web browsers will block API calls
 // to our http://localhost:5000 backend server due to Same-Origin Policy.
+const allowedOrigins = [
+  'http://localhost:3000',
+  process.env.FRONTEND_URL ? process.env.FRONTEND_URL.replace(/\/$/, '') : null
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps, curl, or postman)
+    if (!origin) return callback(null, true);
+    
+    const normalizedOrigin = origin.replace(/\/$/, '');
+    if (allowedOrigins.includes(normalizedOrigin)) {
+      callback(null, true);
+    } else {
+      console.log(`Blocked origin: ${origin} (Allowed: ${allowedOrigins.join(', ')})`);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
