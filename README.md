@@ -9,11 +9,6 @@ An AI-powered web application designed to help food businesses generate professi
 
 ---
 
-## 🎥 Demo Video
-* **YouTube Unlisted Demo Walkthrough:** [Insert YouTube Demo Video Link here (YouTube Unlisted)]
-
----
-
 ## 📸 Screenshots
 
 Click the links below to view the application walkthrough screenshots:
