@@ -1,162 +1,209 @@
 # FlavorForge AI
 
-FlavorForge AI is an AI-powered web application designed to help food businesses generate professional product descriptions, branding content, and e-commerce-ready marketing copy using Google Gemini AI.
+An AI-powered web application designed to help food businesses generate professional product descriptions, brand positioning profiles, and marketing copy using Google Gemini AI.
 
 ---
 
-## 🚀 Features
+## 🌐 Live Demo
+* **Production Deployment URL:** [https://flavorforge-ai.vercel.app](https://flavorforge-ai.vercel.app)
 
-* AI-generated product descriptions
-* Multiple content tone options
-* Product input dashboard
-* Regenerate response functionality
-* Copy-to-clipboard support
-* Responsive modern UI
+---
+
+## 🎥 Demo Video
+* **YouTube Unlisted Demo Walkthrough:** [https://youtu.be/UU4jEWgbDSQ](https://youtu.be/UU4jEWgbDSQ)
+
+---
+
+## 📸 Screenshots
+
+### 1. Database Schema Design (MongoDB Atlas)
+![Mongoose DB Schema](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/db_schema.png)
+
+### 2. Authenticated Dashboard UI
+![Dashboard View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/dashboard.png)
+
+### 3. AI Copywriting Generation Modal
+![AI Generation View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/generation.png)
+
+### 4. Responsive Viewports (Desktop vs Mobile)
+![Responsive Check](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/responsive.png)
+
+---
+
+## ✨ Features
+
+* **JWT User Authentication:** Secure credential signups, logins, and cookie-free JWT verification.
+* **Google OAuth Sign-In:** One-click Google login integration using sessionless Passport.js strategy redirects.
+* **Role-Based AI Generation:** Dynamically generates catalog descriptions, brand positioning matrices, and conversion-focused marketing copies based on ingredients and audience parameters.
+* **Sensory Prompt Engineering:** Prompts Google Gemini with strict writing guidelines, sensory constraints (taste, aroma, pairing), and tone rules.
+* **Full CRUD Operations:** Scopes creation, reading, status toggling (draft vs published), modifications, and deletions to the authenticated user ID.
+* **Brute-Force Rate Limiter:** Restricts authentication routes to 5 requests per 15 minutes per IP.
+* **Responsive Layouts:** Premium glassmorphism design optimized for 375px (mobile), 768px (tablet), and 1440px (desktop) viewports.
+* **UX Safety Nets:** Includes React Error Boundaries, custom empty-state fallback screens, input validators, and deletion confirmation modals.
+* **Search & Filter:** Dynamic client-side typing debouncer with 300ms delays to search and filter database records without flooding network ports.
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-
-* Next.js
-* Tailwind CSS
-
-### Backend
-
-* Node.js
-* Express.js
-
-### Database
-
-* MongoDB Atlas
-
-### AI Integration
-
-* Google Gemini API
-
-### Deployment
-
-* Vercel
-* Render
-
----
-
-## 📦 Project Structure
-
-frontend/
-backend/
-
----
-
-## 🗄️ Database Design & Architecture
-
-We have integrated a cloud-hosted **MongoDB Atlas** database using the **Mongoose ODM**. 
-
-### Rationale
-MongoDB is a document-based NoSQL database, making it ideal for our flexible food branding datasets. Since generated marketing copies, descriptions, and profiles are schema-fluid text structures, a document model avoids heavy, unnecessary migrations and speeds up read/write latency.
-
-### Data Model ER Diagram
-Below is our database entity schema. The `User` entity has a one-to-many relationship with `ContentItem` (a user can generate many content profiles).
-
-```mermaid
-erDiagram
-    User ||--o{ ContentItem : "generates"
-    User {
-        ObjectId _id PK
-        string name
-        string email UK
-        string password
-        date createdAt
-    }
-    ContentItem {
-        ObjectId _id PK
-        string title
-        string type "description | branding | marketing"
-        string description
-        string ingredients
-        string targetAudience
-        string tone
-        string generatedText
-        string status "draft | published"
-        ObjectId userId FK
-        date createdAt
-    }
-```
+| Layer | Technology | Rationale |
+| :--- | :--- | :--- |
+| **Frontend** | React / Next.js (Tailwind CSS) | Rapid client-side virtual DOM rendering and utility-first responsive layout styling. |
+| **Backend** | Node.js / Express.js | Event-driven, non-blocking asynchronous I/O optimized for handling concurrent API fetches. |
+| **Database** | MongoDB Atlas / Mongoose | Document-oriented store providing schema flexibility for text-fluid branding assets. |
+| **AI Engine** | Google Gemini (`gemini-3.1-flash-lite`) | Generous free tier quotas, rapid latency responses, and strong context execution. |
+| **Deployment** | Vercel (Frontend) & Render (Backend) | Best-in-class automated CI/CD pipeline git integrations. |
 
 ---
 
 ## ⚙️ Setup & Installation
 
-### Backend Setup
-1. Navigate to the backend directory:
+### Prerequisite Environment Variables
+Create a `.env` file in `/backend` containing:
+```ini
+PORT=5000
+FRONTEND_URL=http://localhost:3000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/flavorforge-ai
+JWT_SECRET=your_jwt_signing_secret_key
+GEMINI_API_KEY=your_google_gemini_api_key
+GOOGLE_CLIENT_ID=your_google_oauth_client_id
+GOOGLE_CLIENT_SECRET=your_google_oauth_client_secret
+GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
+```
+
+Create a `.env` file in `/frontend` containing:
+```ini
+NEXT_PUBLIC_API_URL=http://localhost:5000
+```
+
+### Local Setup
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/Avinash00006/flavorforge-ai.git
+   cd flavorforge-ai
+   ```
+2. **Backend Server Setup:**
    ```bash
    cd backend
-   ```
-2. Install dependencies:
-   ```bash
    npm install
-   ```
-3. Create your `.env` configuration file:
-   ```bash
-   copy .env.example .env
-   ```
-4. Update the `MONGODB_URI` inside `.env` with your MongoDB Atlas connection string.
-5. Boot the API server in development mode:
-   ```bash
    npm run dev
    ```
-
-### Frontend Setup
-1. Navigate to the frontend directory:
+3. **Frontend Application Setup:**
    ```bash
    cd ../frontend
-   ```
-2. Install packages:
-   ```bash
    npm install
-   ```
-3. Run the Next.js development server:
-   ```bash
    npm run dev
    ```
-4. Access the web app in your browser at `http://localhost:3000`.
+4. Open `http://localhost:3000` in your browser.
 
 ---
 
-## 📌 Project Goal
+## 📡 API Documentation
 
-FlavorForge AI aims to help small and medium food processing businesses improve their digital product presentation through AI-powered content generation and branding assistance.
+### 1. Register User
+* **Endpoint:** `POST /api/auth/register`
+* **Request Body:**
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john@brand.com",
+    "password": "securepassword123"
+  }
+  ```
+* **Success Response (201):**
+  ```json
+  {
+    "success": true,
+    "message": "User registered successfully. You can now log in.",
+    "data": { "id": "64b0f9...", "name": "John Doe", "email": "john@brand.com" }
+  }
+  ```
+
+### 2. Login User
+* **Endpoint:** `POST /api/auth/login`
+* **Request Body:**
+  ```json
+  {
+    "email": "john@brand.com",
+    "password": "securepassword123"
+  }
+  ```
+* **Success Response (200):**
+  ```json
+  {
+    "success": true,
+    "message": "Login successful.",
+    "token": "eyJhbGciOi...",
+    "data": { "id": "64b0f9...", "name": "John Doe", "email": "john@brand.com" }
+  }
+  ```
+
+### 3. Generate and Save Content (Protected)
+* **Endpoint:** `POST /api/content`
+* **Headers:** `Authorization: Bearer <JWT_TOKEN>`
+* **Request Body:**
+  ```json
+  {
+    "title": "Spicy Mango Sauce",
+    "type": "description",
+    "description": "Zesty dipping sauce",
+    "ingredients": "Mango, Habenero, Vinegar",
+    "tone": "Energetic",
+    "targetAudience": "Barbecue fans"
+  }
+  ```
+* **Success Response (201):**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": "64c8f...",
+      "title": "Spicy Mango Sauce",
+      "generatedText": "Ignite your senses with this zesty blend...",
+      "status": "draft"
+    }
+  }
+  ```
 
 ---
 
-## 🌐 Live Production Deployments
+## 📂 Architecture & Folder Structure
 
-FlavorForge AI is fully deployed to production in the cloud and is publicly accessible:
+FlavorForge AI is structured as a monorepo containing isolated frontend and backend folders:
 
-* **Live Frontend View:** [https://flavorforge-ai.vercel.app](https://flavorforge-ai.vercel.app) *(Vercel URL placeholder)*
-* **Live API Backend Server:** [https://flavorforge-ai-api.onrender.com](https://flavorforge-ai-api.onrender.com) *(Render URL placeholder)*
-* **Database Layer:** Hosted on **MongoDB Atlas** (Cloud Replica Set).
-
-### 🛠️ Production Environment Variable Configurations
-
-To run the application in a production environment, ensure the following parameters are populated:
-
-#### Frontend (Vercel)
-* `NEXT_PUBLIC_API_URL`: Directs API calls to the production Render server (e.g. `https://flavorforge-ai-api.onrender.com`).
-
-#### Backend (Render)
-* `FRONTEND_URL`: Points to your production Vercel frontend URL to permit CORS resource access.
-* `MONGODB_URI`: Cloud database connection string.
-* `JWT_SECRET`: Signature verification key for user security tokens.
-* `GEMINI_API_KEY`: API Key for Google Gemini text generation.
-* `GOOGLE_CALLBACK_URL`: `https://flavorforge-ai-api.onrender.com/api/auth/google/callback`
-
-### ⚠️ Known Free Tier Limitations
-Render's free tier web services spin down automatically after **15 minutes** of inactivity. The first request after a period of idleness will trigger a container cold-start, taking **30 to 60 seconds** to boot. Subsequent requests will resolve instantly.
+```text
+flavorforge-ai/
+├── backend/                  # Express REST API Server
+│   ├── config/               # Passport.js OAuth and database configs
+│   ├── controllers/          # Business logic handlers (auth, CRUD content)
+│   ├── middleware/           # JWT security filters & rate limit configs
+│   ├── models/               # Mongoose DB schema schemas (User, ContentItem)
+│   ├── routes/               # Express endpoints router maps
+│   ├── utils/                # Google Gemini prompt engineering logic
+│   ├── package.json
+│   └── server.js             # Main server execution hook
+├── frontend/                 # Next.js Application
+│   ├── app/                  # Route layouts and views (dashboard, login, profile, register)
+│   ├── components/           # Navbar, footer, route guard wrapper, error boundary
+│   │   └── ui/               # Reusable UI buttons, inputs, modals, empty states
+│   └── package.json
+├── screenshots/              # Document images directory
+├── PROMPTS.md                # Prompt engineering testing logs
+└── README.md                 # Project portfolio document
+```
 
 ---
 
-## 📄 License
+## ⚠️ Known Limitations
 
-MIT License
+* **Render Free Tier Cold Starts:** Render's free tier spins down the backend container after **15 minutes** of inactivity, causing the first API request after idleness to take **30-60 seconds** to wake up.
+* **Gemini Free Tier Quotas:** The Google AI Studio free tier limits requests to 15 per minute, which may occasionally trigger a `429 Rate Limit` response during heavy concurrent usage.
+* **Google OAuth Keys Requirement:** Social sign-in requires valid `GOOGLE_CLIENT_ID` credentials in the server environment, defaulting to standard form login if keys are unconfigured.
+
+---
+
+## 🎓 Credits & Acknowledgements
+
+* **Google Gemini API:** Powered by the `gemini-3.1-flash-lite` model for generating high-converting food brand copy.
+* **Antigravity (Google DeepMind Team):** For assistance in codebase construction, debugging, and milestone planning.
+* **GEU Technology Business Incubator (TBI):** For mentorship and project guidelines during the Full Stack Web Development Internship.
