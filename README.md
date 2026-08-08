@@ -1,6 +1,6 @@
 # FlavorForge AI
 
-An AI-powered web application designed to help food businesses generate professional product descriptions, brand positioning profiles, and marketing copy using Google Gemini AI.
+An AI-powered web application designed to help food businesses generate professional product descriptions, brand positioning profiles, and e-commerce-ready marketing copy using Google Gemini AI.
 
 ---
 
@@ -10,23 +10,30 @@ An AI-powered web application designed to help food businesses generate professi
 ---
 
 ## 🎥 Demo Video
-* **YouTube Unlisted Demo Walkthrough:** [https://youtu.be/UU4jEWgbDSQ](https://youtu.be/UU4jEWgbDSQ)
+* **YouTube Unlisted Demo Walkthrough:** [Insert YouTube Demo Video Link here (YouTube Unlisted)]
 
 ---
 
 ## 📸 Screenshots
 
-### 1. Database Schema Design (MongoDB Atlas)
-![Mongoose DB Schema](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/db_schema.png)
+### 1. Live App Home Page
+![Live App Home Page](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/live_homepage.png)
 
 ### 2. Authenticated Dashboard UI
 ![Dashboard View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/dashboard.png)
 
 ### 3. AI Copywriting Generation Modal
-![AI Generation View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/generation.png)
+![AI Generation View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/live_generation.png)
 
-### 4. Responsive Viewports (Desktop vs Mobile)
+### 4. Database Schema Design (MongoDB Atlas)
+![Mongoose DB Schema](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/db_schema.png)
+
+### 5. Responsive Viewports (Desktop vs Mobile Simulation)
 ![Responsive Check](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/responsive.png)
+
+### 6. Cloud Hosting Dashboards (Vercel & Render)
+![Vercel Deployment](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/vercel_deploy.png)
+![Render Deployment](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/render_deploy.png)
 
 ---
 
