@@ -16,24 +16,15 @@ An AI-powered web application designed to help food businesses generate professi
 
 ## 📸 Screenshots
 
-### 1. Live App Home Page
-![Live App Home Page](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/live_homepage.png)
+Click the links below to view the application walkthrough screenshots:
 
-### 2. Authenticated Dashboard UI
-![Dashboard View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/dashboard.png)
-
-### 3. AI Copywriting Generation Modal
-![AI Generation View](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/live_generation.png)
-
-### 4. Database Schema Design (MongoDB Atlas)
-![Mongoose DB Schema](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/db_schema.png)
-
-### 5. Responsive Viewports (Desktop vs Mobile Simulation)
-![Responsive Check](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/responsive.png)
-
-### 6. Cloud Hosting Dashboards (Vercel & Render)
-![Vercel Deployment](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/vercel_deploy.png)
-![Render Deployment](https://github.com/Avinash00006/flavorforge-ai/raw/main/screenshots/render_deploy.png)
+* 🌐 **[Live App Home Page](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/live_homepage.png)**
+* 🖥️ **[Authenticated Dashboard UI](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/dashboard.png)**
+* 🧪 **[AI Copywriting Generation Modal](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/live_generation.png)**
+* 🗄️ **[Database Schema Design (MongoDB Atlas)](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/db_schema.png)**
+* 📱 **[Responsive Viewports (Desktop vs Mobile Simulation)](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/responsive.png)**
+* ☁️ **[Vercel Deployment Dashboard](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/vercel_deploy.png)**
+* ☁️ **[Render Deployment Dashboard](https://github.com/Avinash00006/flavorforge-ai/blob/main/screenshots/render_deploy.png)**
 
 ---
 
