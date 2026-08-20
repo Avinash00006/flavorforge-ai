@@ -33,14 +33,18 @@ router.post('/', async (req, res, next) => {
       subject: "FlavorForge AI - Developer Message"
     };
 
+    const formBody = new URLSearchParams(payload).toString();
+
     // Use global fetch (Node 18+) to communicate with the Web3Forms gateway
     const response = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Referer': 'https://flavorforge-ai.vercel.app/'
       },
-      body: JSON.stringify(payload)
+      body: formBody
     });
 
     if (response.ok) {
