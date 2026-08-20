@@ -8,21 +8,25 @@ export default function Footer() {
 
         <div className="flex gap-6 mt-4 md:mt-0">
           <a
-            href="#"
+            href="https://github.com/Avinash00006"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-zinc-500 dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm"
           >
             GitHub
           </a>
 
           <a
-            href="#"
+            href="https://linkedin.com/in/avinash-koneti"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-zinc-500 dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm"
           >
             LinkedIn
           </a>
 
           <a
-            href="#"
+            href="/contact"
             className="text-zinc-500 dark:text-zinc-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors text-sm"
           >
             Contact

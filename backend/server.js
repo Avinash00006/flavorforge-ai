@@ -16,6 +16,7 @@ const rateLimit = require('express-rate-limit');
 // Import modular routes and middlewares
 const contentRoutes = require('./routes/contentRoutes');
 const authRoutes = require('./routes/authRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 const errorHandler = require('./middleware/errorHandler');
 const connectDB = require('./config/db');
 
@@ -92,6 +93,9 @@ app.use('/api/auth', authLimiter, authRoutes);
 
 // All content management requests are handled under the /api/content base path
 app.use('/api/content', contentRoutes);
+
+// Handle secure contact submissions relayed to Web3Forms
+app.use('/api/contact', contactRoutes);
 
 // Simple health check root route
 app.get('/', (req, res) => {
