@@ -96,6 +96,12 @@ export default function ContactPage() {
       <main className="flex-1 flex items-center justify-center px-6 py-16">
         <div className="w-full max-w-lg bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 shadow-sm backdrop-blur-md">
           <div className="mb-8 text-center">
+            {/* Contact Icon Avatar */}
+            <div className="w-16 h-16 bg-orange-500/10 text-orange-500 rounded-2xl 
+                            mx-auto flex items-center justify-center text-3xl font-bold mb-4
+                            border border-orange-500/20 shadow-xs">
+              ✉️
+            </div>
             <h1 className="text-3xl font-extrabold text-zinc-950 dark:text-zinc-50">
               Contact Developer
             </h1>
@@ -105,40 +111,32 @@ export default function ContactPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
-                Name
-              </label>
-              <Input
-                type="text"
-                placeholder="Your Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={loading}
-                required
-              />
-            </div>
+            <Input
+              label="Name"
+              type="text"
+              placeholder="Your Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              disabled={loading}
+              required
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
-                Email Address
-              </label>
-              <Input
-                type="email"
-                placeholder="your@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-                required
-              />
-            </div>
+            <Input
+              label="Email Address"
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={loading}
+              required
+            />
 
-            <div>
-              <label className="block text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
+            <div className="flex flex-col gap-1.5 w-full">
+              <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
                 Message
               </label>
               <textarea
-                className="w-full min-h-[120px] rounded-lg border border-zinc-200 dark:border-zinc-800 bg-transparent px-3 py-2 text-sm text-zinc-950 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500 disabled:opacity-50 transition-all"
+                className="w-full min-h-[120px] rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 disabled:opacity-50 transition-all"
                 placeholder="Type your message here..."
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}

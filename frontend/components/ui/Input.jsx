@@ -19,6 +19,7 @@ export default function Input({
   onChange,
   error,
   id,
+  ...props
 }) {
   // Generate a standard web-safe ID from the label if no explicit ID is provided
   const inputId = id || (label ? label.toLowerCase().replace(/[^a-z0-9]+/g, "-") : undefined);
@@ -62,8 +63,10 @@ export default function Input({
           focus:ring-2
           focus:ring-orange-500/20
           focus:border-orange-500
+          disabled:opacity-50
           transition-all
         "
+        {...props}
       />
 
       {error && (
