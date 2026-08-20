@@ -18,44 +18,33 @@ export default function ContactPage() {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   
-  // Custom states for form hiding and countdown spam-lock
+  // Custom state for form hiding
   const [submitted, setSubmitted] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(0);
 
-  // Monitor spam protection status and run cooldown countdown in the background
+  // Monitor spam protection status on mount
   useEffect(() => {
-    const checkCooldown = () => {
-      const lastSubmitted = localStorage.getItem('lastContactSubmitted');
-      if (lastSubmitted) {
-        const timePassed = Date.now() - parseInt(lastSubmitted, 10);
-        const cooldownPeriod = 5 * 60 * 1000; // 5 minutes in milliseconds
-        if (timePassed < cooldownPeriod) {
-          setSubmitted(true);
-          setTimeLeft(Math.ceil((cooldownPeriod - timePassed) / 1000));
-        } else {
-          setSubmitted(false);
-          setTimeLeft(0);
-        }
+    const lastSubmitted = localStorage.getItem('lastContactSubmitted');
+    if (lastSubmitted) {
+      const timePassed = Date.now() - parseInt(lastSubmitted, 10);
+      const cooldownPeriod = 5 * 60 * 1000; // 5 minutes in milliseconds
+      if (timePassed < cooldownPeriod) {
+        setSubmitted(true);
       }
-    };
-
-    // Initial check on mount
-    checkCooldown();
-
-    // Re-check every second to update countdown display
-    const interval = setInterval(checkCooldown, 1000);
-    return () => clearInterval(interval);
+    }
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Check cooldown state first
-    if (timeLeft > 0) {
-      const minutes = Math.floor(timeLeft / 60);
-      const seconds = timeLeft % 60;
-      toast.error(`Spam Protection: Please wait ${minutes}m ${seconds}s before sending another message.`);
-      return;
+    const lastSubmitted = localStorage.getItem('lastContactSubmitted');
+    if (lastSubmitted) {
+      const timePassed = Date.now() - parseInt(lastSubmitted, 10);
+      const cooldownPeriod = 5 * 60 * 1000;
+      if (timePassed < cooldownPeriod) {
+        toast.error('You have already sent a message recently. Please try again later.');
+        return;
+      }
     }
 
     // Basic form validation
@@ -101,7 +90,6 @@ export default function ContactPage() {
       // Save submission timestamp to prevent spam
       localStorage.setItem('lastContactSubmitted', Date.now().toString());
       setSubmitted(true);
-      setTimeLeft(300); // Set initial 5 minutes countdown
       
       // Clear form inputs
       setName('');
@@ -136,19 +124,13 @@ export default function ContactPage() {
                 Thank you for reaching out. Your secure message has been successfully delivered. The developer will contact you shortly.
               </p>
               
-              <div className="mt-8 space-y-4">
+              <div className="mt-8">
                 <Button
                   onClick={() => router.push('/dashboard')}
                   className="w-full py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors duration-200"
                 >
                   Go to Dashboard
                 </Button>
-                
-                {timeLeft > 0 && (
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500 font-semibold tracking-wide">
-                    ⏱️ Spam protection active. Cooldown ends in: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s
-                  </p>
-                )}
               </div>
             </div>
           ) : (
