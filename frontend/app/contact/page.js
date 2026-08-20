@@ -27,18 +27,36 @@ export default function ContactPage() {
       return;
     }
 
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
+    if (!accessKey) {
+      toast.error("Contact service not configured: 'NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY' is missing in Vercel.");
+      return;
+    }
+
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/api/contact`, {
+      const payload = {
+        access_key: accessKey.trim().replace(/['"]/g, ''),
+        name: name.trim(),
+        email: email.trim(),
+        message: message.trim(),
+        subject: "FlavorForge AI - Developer Message"
+      };
+
+      // Submit directly from the client's browser to bypass Cloudflare server-side WAF blocks
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, message })
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
       });
 
       const resData = await response.json();
 
-      if (!response.ok) {
-        throw new Error(resData.error?.message || resData.message || 'Failed to send message.');
+      if (!response.ok || !resData.success) {
+        throw new Error(resData.message || 'Failed to send message.');
       }
 
       toast.success('Message sent successfully! The developer will contact you shortly.');

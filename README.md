@@ -189,14 +189,14 @@ flavorforge-ai/
 
 ## 📬 Secure Contact & Feedback System Setup
 
-The web application includes a secure **Contact Developer** form linked in the footer. It allows users to send messages directly to your email inbox without exposing your email address in the client-side code:
+The web application includes a secure **Contact Developer** form linked in the footer. To bypass Cloudflare bot challenges on cloud hosting environments, this form submits requests directly from the user's browser:
 
 1. **Get an Access Key:** Go to [web3forms.com](https://web3forms.com/), submit your email, and receive your public access token key.
-2. **Local Environment Config:** Paste your key in your backend `.env` file:
+2. **Local Environment Config:** Paste your key in your frontend `.env` file:
    ```ini
-   WEB3FORMS_ACCESS_KEY=your-web3forms-access-key-here
+   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your-web3forms-access-key-here
    ```
-3. **Cloud Production Setup:** In your **Render Web Service Dashboard**, navigate to **Environment Variables** and add `WEB3FORMS_ACCESS_KEY` along with your token.
+3. **Cloud Production Setup:** In your **Vercel Dashboard**, navigate to **Project Settings** -> **Environment Variables** and add `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` along with your token.
 
 ---
 
