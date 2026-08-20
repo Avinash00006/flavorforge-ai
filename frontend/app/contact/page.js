@@ -21,6 +21,20 @@ export default function ContactPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Cooldown verification (max 1 message per 5 minutes per browser session)
+    const lastSubmitted = localStorage.getItem('lastContactSubmitted');
+    if (lastSubmitted) {
+      const timePassed = Date.now() - parseInt(lastSubmitted, 10);
+      const cooldownPeriod = 5 * 60 * 1000; // 5 minutes in milliseconds
+      if (timePassed < cooldownPeriod) {
+        const secondsLeft = Math.ceil((cooldownPeriod - timePassed) / 1000);
+        const minutes = Math.floor(secondsLeft / 60);
+        const seconds = secondsLeft % 60;
+        toast.error(`Spam Protection: Please wait ${minutes}m ${seconds}s before sending another message.`);
+        return;
+      }
+    }
+
     // Basic form validation
     if (!name.trim() || !email.trim() || !message.trim()) {
       toast.error('Please fill in all fields.');
@@ -60,6 +74,9 @@ export default function ContactPage() {
       }
 
       toast.success('Message sent successfully! The developer will contact you shortly.');
+      
+      // Save submission timestamp to prevent spam
+      localStorage.setItem('lastContactSubmitted', Date.now().toString());
       
       // Clear form inputs on success
       setName('');
