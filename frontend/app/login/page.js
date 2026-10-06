@@ -16,6 +16,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import { FlameIcon } from "../../components/Icons";
 
 // Backend base URL configuration
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -85,16 +86,19 @@ export default function Login() {
       <main className="min-h-screen flex items-center justify-center px-6">
 
         {/* Login Card */}
-        <div className="w-full max-w-md p-8 rounded-xl bg-white dark:bg-zinc-900/40
-                        border border-zinc-200 dark:border-zinc-800 shadow-sm
-                        transition-all duration-300">
+        <div className="w-full max-w-md p-8 rounded-2xl bg-white/80 dark:bg-stone-900/70
+                        border border-stone-200/80 dark:border-stone-800/80 shadow-xl shadow-amber-500/5
+                        backdrop-blur-xl transition-all duration-300">
 
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white mx-auto mb-3 shadow-md shadow-orange-500/20">
+              <FlameIcon className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-3xl font-black tracking-tight text-stone-950 dark:text-stone-50">
               Welcome Back
             </h1>
-            <p className="mt-2 text-zinc-500 dark:text-zinc-400 text-sm">
-              Log in to continue using FlavorForge AI
+            <p className="mt-2 text-stone-600 dark:text-stone-400 text-sm">
+              Log in to continue crafting with FlavorForge AI
             </p>
           </div>
 
@@ -123,7 +127,7 @@ export default function Login() {
             <Button 
               type="submit" 
               variant="primary" 
-              className="w-full py-2.5 mt-2 flex justify-center items-center"
+              className="w-full py-3 mt-2 flex justify-center items-center font-semibold"
               disabled={loading}
             >
               {loading ? (
@@ -137,9 +141,9 @@ export default function Login() {
           {/* Divider */}
           <div className="relative my-6 flex items-center justify-center">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-zinc-200 dark:border-zinc-800"></div>
+              <div className="w-full border-t border-stone-200 dark:border-stone-800"></div>
             </div>
-            <span className="relative bg-white dark:bg-zinc-950 px-4 text-xs uppercase text-zinc-400">
+            <span className="relative bg-white/90 dark:bg-stone-900/90 px-3 text-xs uppercase tracking-wider text-stone-400">
               or continue with
             </span>
           </div>
@@ -149,10 +153,10 @@ export default function Login() {
             type="button"
             variant="secondary"
             onClick={handleGoogleLogin}
-            className="w-full py-2.5 flex items-center justify-center gap-2 border border-zinc-200 dark:border-zinc-800 bg-transparent text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900"
+            className="w-full py-3 flex flex-row items-center justify-center gap-3 border border-stone-200/80 dark:border-stone-800/80 bg-white/70 dark:bg-stone-900/70 text-stone-800 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 shadow-xs"
           >
             {/* Google Icon SVG */}
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 fill="#EA4335"
                 d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.354 0 3.39 2.76 1.523 6.755l3.743 3.01z"
@@ -170,15 +174,15 @@ export default function Login() {
                 d="M23.491 12.273c0-.818-.082-1.609-.227-2.373H12v4.518h6.445a5.532 5.532 0 0 1-2.4 3.627l3.864 3.009c2.263-2.09 3.582-5.173 3.582-8.781z"
               />
             </svg>
-            Google
+            <span className="font-semibold text-sm whitespace-nowrap">Google</span>
           </Button>
 
           {/* Registration Redirect Link */}
-          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 mt-6">
+          <p className="text-center text-sm text-stone-500 dark:text-stone-400 mt-6">
             Don't have an account?{' '}
             <Link
               href="/register"
-              className="font-medium text-orange-500 hover:text-orange-600 transition-colors"
+              className="font-semibold text-amber-600 dark:text-amber-400 hover:text-orange-600 transition-colors"
             >
               Sign Up
             </Link>

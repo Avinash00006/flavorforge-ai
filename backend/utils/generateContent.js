@@ -1,12 +1,8 @@
 /**
  * Content Generator Utility
  * 
- * Refactored in Week 7 to integrate the Google Gemini API (`gemini-1.5-flash`)
- * using the official Google Generative AI Node.js SDK.
- * 
- * Includes a robust fail-safe try-catch wrapper: if the Gemini key is missing,
- * or if the API call fails/times out, it automatically falls back to generating 
- * high-quality mock text templates, ensuring the application remains fully functional.
+ * Integrates the Google Gemini API using the official Google Generative AI Node.js SDK.
+ * Includes a robust fail-safe try-catch wrapper with local fallback templates.
  */
 
 const { GoogleGenerativeAI } = require('@google/generative-ai');
@@ -15,34 +11,39 @@ const { GoogleGenerativeAI } = require('@google/generative-ai');
  * Local Fail-Safe Template Generator
  * Used as a fallback when the API key is missing or the external API call fails.
  */
-const generateLocalBackup = (type, title, ingredients, tone, targetAudience) => {
+const generateLocalBackup = (type, title, ingredients, tone, targetAudience, description, channel) => {
   const brand = title || "FlavorForge Gourmet Item";
   const ingreds = ingredients || "all-natural premium ingredients";
   const audience = targetAudience || "food lovers";
-  const toneStyle = tone || "Engaging";
+  const toneStyle = tone || "Sensory & Gourmet";
+  const extraContext = description || "";
+  const platform = channel || "Social Media & E-Commerce";
 
   if (type === 'description') {
-    return `Discover the exquisite flavor profile of our brand-new "${brand}"! Masterfully prepared using handpicked ${ingreds}, this delicious creation is tailored for ${audience}. Curated with an ${toneStyle.toLowerCase()} tone in mind, it delivers a perfect balance of authentic taste and wholesome nutrition to your table. Add a touch of gourmet to your daily meals today!`;
+    return `Discover the exquisite flavor profile of "${brand}"! Masterfully prepared using handpicked ${ingreds}, this creation is curated with a ${toneStyle.toLowerCase()} sensibility for ${audience}. ${extraContext ? `Featuring ${extraContext.toLowerCase()}, ` : ''}it delivers an authentic balance of aroma and rich mouthfeel to your table. A true standout for your culinary collection.`;
   } else if (type === 'branding') {
     return `FlavorForge AI Brand Positioning & Identity Profile for ${brand}:\n\n` +
-           `1. CORE MISSION:\n` +
-           `   To bring the authentic taste of ${ingreds} directly to consumers who value premium quality.\n\n` +
-           `2. AUDIENCE ALIGNMENT:\n` +
-           `   Positioned specifically for ${audience} who seek both flavor and transparency.\n\n` +
+           `1. CORE BRAND MISSION:\n` +
+           `   To bring the culinary excellence of ${ingreds} directly to consumers who demand authenticity and exceptional taste.\n\n` +
+           `2. TARGET PERSONA ALIGNMENT:\n` +
+           `   Positioned specifically for ${audience} who value provenance, clean flavor, and craft quality.\n\n` +
            `3. BRAND VOICE & PERSONALITY:\n` +
-           `   A highly ${toneStyle.toLowerCase()} and trusted voice that communicates culinary excellence.\n\n` +
-           `4. VALUE PROPOSITION:\n` +
-           `   Unmatched flavor integrity, minimal processing, and clean-label ingredients.`;
+           `   A ${toneStyle.toLowerCase()} voice communicating confidence, culinary authority, and passion.\n\n` +
+           `4. UNIQUE VALUE PROPOSITION (USP):\n` +
+           `   • Pure ingredient integrity centered on ${ingreds}.\n` +
+           `   • ${extraContext ? extraContext : 'Distinct gastronomic profile standing out in modern retail.'}\n` +
+           `   • Uncompromising commitment to sensory flavor craftsmanship.`;
   } else {
     // type === 'marketing'
-    return `🔥 TASTE ELEVATION IS HERE! 🔥\n\n` +
-           `Are you ready to transform your snack game? Say hello to our new ${brand}! Crafted with love and loaded with ${ingreds}, it is the ultimate snack designed for ${audience}.\n\n` +
-           `Whether you're hosting a party, packing lunches, or refueling on the go, this snack is a must-have.\n\n` +
-           `✨ Why choose ${brand}?\n` +
-           `• Pure, wholesome ingredients\n` +
-           `• Delectable taste tailored for you\n` +
-           `• Infused with ${toneStyle.toLowerCase()} styling\n\n` +
-           `🛒 Buy yours today and experience flavor like never before!`;
+    return `🔥 TASTE ELEVATION HAS ARRIVED! 🔥\n\n` +
+           `Ready to experience pure culinary pleasure? Introducing "${brand}" — crafted with ${ingreds} exclusively for ${audience} on ${platform}.\n\n` +
+           `${extraContext ? `✨ Featured Highlight: ${extraContext}\n\n` : ''}` +
+           `Why food lovers choose ${brand}:\n` +
+           `• Chef-inspired flavor balance crafted with ${toneStyle.toLowerCase()} personality\n` +
+           `• Clean, honest ingredients you can taste in every bite\n` +
+           `• Guaranteed to satisfy your cravings\n\n` +
+           `🛒 Order yours today and taste the difference!\n` +
+           `#FoodieFavorites #${brand.replace(/[^a-zA-Z0-9]/g, '')} #FlavorForgeAI`;
   }
 };
 
@@ -50,13 +51,13 @@ const generateLocalBackup = (type, title, ingredients, tone, targetAudience) => 
  * Async Content Generator
  * Calls the Google Gemini API to generate tailored food brand assets.
  */
-const generateContent = async (type, title, ingredients, tone, targetAudience) => {
+const generateContent = async (type, title, ingredients, tone, targetAudience, description, channel) => {
   const apiKey = process.env.GEMINI_API_KEY;
 
   // Fail-safe check: If key is absent or a placeholder, fallback immediately
   if (!apiKey || apiKey === 'your_gemini_api_key_here') {
     console.warn("⚠️ Warning: GEMINI_API_KEY is not configured or is a placeholder. Falling back to local template generator.");
-    return generateLocalBackup(type, title, ingredients, tone, targetAudience);
+    return generateLocalBackup(type, title, ingredients, tone, targetAudience, description, channel);
   }
 
   try {
@@ -67,47 +68,49 @@ const generateContent = async (type, title, ingredients, tone, targetAudience) =
     const model = genAI.getGenerativeModel({ model: "gemini-3.1-flash-lite" });
 
     const brand = title || "Gourmet Food Product";
-    const ingreds = ingredients || "natural raw ingredients";
-    const audience = targetAudience || "general consumers";
-    const toneStyle = tone || "Engaging";
+    const ingreds = ingredients || "natural culinary ingredients";
+    const audience = targetAudience || "curated food lovers";
+    const toneStyle = tone || "Sensory & Gourmet";
+    const extraContext = description ? description.trim() : "";
+    const platform = channel ? channel.trim() : "Social Media & E-Commerce Ads";
 
-    // Dynamic prompt engineering templates - Variation 3 (Custom Styled-Output)
     let prompt = "";
     if (type === 'description') {
-      prompt = `You are a culinary writer and professional food copywriter. Create a sensory, highly appetizing product description for a food product named "${brand}".
-Key Ingredients: ${ingreds}
-Target Demographic: ${audience}
+      prompt = `You are a culinary writer, gastronomy expert, and sensory food copywriter. Create a captivating, highly appetizing product description for a food product named "${brand}".
+Key Ingredients & Flavor Profile: ${ingreds}
+${extraContext ? `Sensory Notes, Texture & Serving Pairings: ${extraContext}\n` : ''}Target Audience: ${audience}
 Desired Tone: ${toneStyle}
 
 Requirements:
-- Emphasize taste, aroma, sensory texture, and mouthfeel.
-- Suggest a creative food pairing or serving suggestion.
-- Keep the writing style natural, fluent, and strictly matching the requested tone.
-- Length: 3-5 sentences. Do not use placeholders or brackets in the output.`;
+- Emphasize aroma, taste complexity, mouthfeel, and texture.
+- Include a creative serving suggestion or flavor pairing.
+- Writing style must be evocative, mouth-watering, and strictly reflect the "${toneStyle}" tone.
+- Length: 3-5 vivid sentences. Do not use generic placeholders, hashtags, or bracketed text.`;
     } else if (type === 'branding') {
-      prompt = `You are a professional brand strategist and creative director. Create a structured Brand Positioning & Identity Profile for a food business named "${brand}".
-Core Ingredients: ${ingreds}
-Target Audience: ${audience}
+      prompt = `You are an elite food brand strategist and creative director. Develop an authoritative, distinct Brand Positioning & Identity Profile for a food business named "${brand}".
+Core Ingredients & Culinary Philosophy: ${ingreds}
+${extraContext ? `Brand Mission & Category Differentiator: ${extraContext}\n` : ''}Target Demographic: ${audience}
 Brand Tone: ${toneStyle}
 
-Structure the output into the following four sections using Markdown:
-1. **Core Brand Mission**: A 1-2 sentence statement expressing the brand's purpose.
-2. **Target Persona Alignment**: Explain why this product appeals to "${audience}".
-3. **Brand Voice Guidelines**: Define 3 adjectives representing the brand voice and explain how to write in a "${toneStyle}" manner.
-4. **Core Value Proposition**: A concise bulleted list of 3 unique selling points (USPs) based on ingredients ("${ingreds}").`;
+Structure the output into the following four sections using clean Markdown:
+1. **Core Brand Mission**: A crisp, inspiring 1-2 sentence mission statement expressing the brand's purpose.
+2. **Target Persona Alignment**: Explain who this speaks to (${audience}) and what emotional food desires it satisfies.
+3. **Brand Voice & Personality Guidelines**: Detail 3 defining voice adjectives and how to communicate with "${toneStyle}" styling.
+4. **Unique Value Proposition (USP)**: 3 punchy, bulleted differentiators based on ingredients and culinary craftsmanship.`;
     } else {
       // type === 'marketing'
-      prompt = `You are a high-converting conversion copywriter and social media marketer. Write engaging marketing copywriting and advertising copy for a food product named "${brand}".
-Key Ingredients: ${ingreds}
-Target Audience: ${audience}
-Writing Tone: ${toneStyle}
+      prompt = `You are a top-tier direct-response food marketer and advertising copywriter. Write compelling promotional copy tailored for ${platform} for a food product named "${brand}".
+Product Highlights & Ingredients: ${ingreds}
+${extraContext ? `Campaign Angle / Special Offer: ${extraContext}\n` : ''}Target Audience: ${audience}
+Advertising Tone: ${toneStyle}
+Target Platform / Format: ${platform}
 
 Requirements:
-- Start with an attention-grabbing hook (use emojis).
-- List 3 bulleted features and benefits (e.g. why they should buy it).
-- End with a compelling Call-to-Action (CTA) prompting a purchase.
-- Include 3 relevant hashtags at the bottom.
-- Match the "${toneStyle}" tone precisely.`;
+- Start with an irresistible, scroll-stopping headline/hook (incorporating tasteful emojis).
+- Provide 3 punchy benefit-driven bullet points focusing on cravings, quality, or convenience.
+- Include a strong, urgent Call-to-Action (CTA).
+- Include 3-4 trending, relevant culinary/foodie hashtags.
+- Precisely adhere to the "${toneStyle}" tone and format suitable for ${platform}.`;
     }
 
     // Call the Gemini API
@@ -122,8 +125,7 @@ Requirements:
     return text.trim();
   } catch (error) {
     console.error(`❌ Gemini API Call Failed: ${error.message}. Falling back to local template generator.`);
-    // Return backup template on API failures to prevent server crashes
-    return generateLocalBackup(type, title, ingredients, tone, targetAudience);
+    return generateLocalBackup(type, title, ingredients, tone, targetAudience, description, channel);
   }
 };
 

@@ -37,8 +37,13 @@ const ContentItemSchema = new mongoose.Schema({
   },
   tone: {
     type: String,
-    default: 'Engaging',
+    default: 'Sensory & Gourmet',
     trim: true
+  },
+  channel: {
+    type: String,
+    trim: true,
+    default: ''
   },
   generatedText: {
     type: String,

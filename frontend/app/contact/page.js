@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import { MailIcon, GithubIcon, LinkedinIcon } from '../../components/Icons';
 
 // Resolve backend server endpoint dynamically
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
@@ -103,11 +104,11 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-black transition-colors duration-200">
+    <div className="flex flex-col min-h-screen bg-transparent transition-colors duration-200">
       <Navbar />
 
       <main className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="w-full max-w-lg bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 shadow-sm backdrop-blur-md">
+        <div className="w-full max-w-lg bg-white/80 dark:bg-stone-900/70 border border-stone-200/80 dark:border-stone-800/80 rounded-2xl p-8 shadow-xl shadow-amber-500/5 backdrop-blur-xl">
           {submitted ? (
             // Success View (Form disappears, showing status card)
             <div className="text-center py-6">
@@ -117,17 +118,17 @@ export default function ContactPage() {
                               border border-green-500/20 shadow-xs animate-pulse">
                 ✅
               </div>
-              <h1 className="text-3xl font-extrabold text-zinc-950 dark:text-zinc-50 mb-3">
+              <h1 className="text-3xl font-black text-stone-950 dark:text-stone-50 mb-3 tracking-tight">
                 Message Sent!
               </h1>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm font-medium leading-relaxed max-w-sm mx-auto">
+              <p className="text-stone-500 dark:text-stone-400 text-sm font-medium leading-relaxed max-w-sm mx-auto">
                 Thank you for reaching out. Your secure message has been successfully delivered. The developer will contact you shortly.
               </p>
               
               <div className="mt-8">
                 <Button
                   onClick={() => router.push('/dashboard')}
-                  className="w-full py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors duration-200"
+                  className="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white rounded-xl font-semibold shadow-md shadow-orange-500/20 transition-all duration-200"
                 >
                   Go to Dashboard
                 </Button>
@@ -138,20 +139,42 @@ export default function ContactPage() {
             <>
               <div className="mb-8 text-center">
                 {/* Contact Icon Avatar */}
-                <div className="w-16 h-16 bg-orange-500/10 text-orange-500 rounded-2xl 
-                                mx-auto flex items-center justify-center text-3xl font-bold mb-4
-                                border border-orange-500/20 shadow-xs">
-                  ✉️
+                <div className="w-14 h-14 bg-gradient-to-tr from-amber-500 to-orange-600 text-white rounded-2xl 
+                                mx-auto flex items-center justify-center mb-4
+                                shadow-md shadow-orange-500/20">
+                  <MailIcon className="w-6 h-6" />
                 </div>
-                <h1 className="text-3xl font-extrabold text-zinc-950 dark:text-zinc-50">
+                <h1 className="text-3xl font-black text-stone-950 dark:text-stone-50 tracking-tight">
                   Contact Developer
                 </h1>
-                <p className="text-zinc-500 dark:text-zinc-400 mt-2 text-sm font-medium">
-                  Send a secure message directly to the developer's inbox.
+                <p className="text-stone-500 dark:text-stone-400 mt-2 text-sm font-medium">
+                  Send a message directly regarding FlavorForge AI features and feedback.
                 </p>
+
+                {/* Developer Social Links */}
+                <div className="flex justify-center gap-3 mt-4">
+                  <a
+                    href="https://github.com/Avinash00006"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-200/80 dark:border-stone-800/80 bg-white/60 dark:bg-stone-900/60 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500/40 transition-colors shadow-xs"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>GitHub</span>
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/sairam-avinash-koneti/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-200/80 dark:border-stone-800/80 bg-white/60 dark:bg-stone-900/60 text-xs font-semibold text-stone-600 dark:text-stone-300 hover:text-amber-600 dark:hover:text-amber-400 hover:border-amber-500/40 transition-colors shadow-xs"
+                  >
+                    <LinkedinIcon className="w-3.5 h-3.5" />
+                    <span>LinkedIn</span>
+                  </a>
+                </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <Input
                   label="Name"
                   type="text"
@@ -173,11 +196,11 @@ export default function ContactPage() {
                 />
 
                 <div className="flex flex-col gap-1.5 w-full">
-                  <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+                  <label className="text-sm font-semibold text-stone-700 dark:text-stone-300">
                     Message
                   </label>
                   <textarea
-                    className="w-full min-h-[120px] rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2.5 text-sm text-zinc-900 dark:text-zinc-50 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 disabled:opacity-50 transition-all"
+                    className="w-full min-h-[120px] rounded-xl border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 px-4 py-2.5 text-sm text-stone-900 dark:text-stone-50 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 disabled:opacity-50 transition-all shadow-xs"
                     placeholder="Type your message here..."
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -188,7 +211,8 @@ export default function ContactPage() {
 
                 <Button
                   type="submit"
-                  className="w-full flex justify-center items-center gap-2 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg font-semibold transition-colors duration-200"
+                  variant="primary"
+                  className="w-full py-3 font-semibold"
                   disabled={loading}
                 >
                   {loading ? (

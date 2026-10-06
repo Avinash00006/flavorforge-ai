@@ -35,14 +35,14 @@ export default function Modal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 backdrop-blur-xs">
-      <div className="bg-white dark:bg-zinc-950 text-zinc-950 dark:text-zinc-50 border border-zinc-200 dark:border-zinc-800 rounded-xl p-6 w-[90%] max-w-md shadow-xl transition-colors duration-200">
-        <div className="flex justify-between items-center mb-4 pb-2 border-b border-zinc-150 dark:border-zinc-800">
-          <h2 className="text-xl font-bold tracking-tight">{title}</h2>
+    <div className="fixed inset-0 bg-black/60 flex justify-center items-center z-50 backdrop-blur-sm px-4">
+      <div className="bg-[#fbf9f5]/95 dark:bg-[#141210]/95 text-stone-900 dark:text-stone-50 border border-stone-200/80 dark:border-stone-800/80 rounded-2xl p-7 w-full max-w-xl shadow-2xl backdrop-blur-xl transition-all duration-200 max-h-[90vh] overflow-y-auto">
+        <div className="flex justify-between items-center mb-5 pb-3 border-b border-stone-200/80 dark:border-stone-800/80">
+          <h2 className="text-xl font-bold tracking-tight text-stone-950 dark:text-stone-50">{title}</h2>
 
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-red-500 dark:text-zinc-500 dark:hover:text-red-400 transition-colors text-lg"
+            className="w-8 h-8 rounded-lg flex items-center justify-center text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors text-base cursor-pointer"
           >
             ✕
           </button>

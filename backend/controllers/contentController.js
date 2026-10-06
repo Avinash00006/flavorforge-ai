@@ -107,7 +107,7 @@ const getContentById = async (req, res, next) => {
  */
 const createContent = async (req, res, next) => {
   try {
-    const { title, type, description, ingredients, tone, targetAudience } = req.body;
+    const { title, type, description, ingredients, tone, targetAudience, channel } = req.body;
 
     // Validate request inputs
     if (!title || !type) {
@@ -116,8 +116,8 @@ const createContent = async (req, res, next) => {
       return next(error);
     }
 
-    // Call the asynchronous Google Gemini text generator
-    const generatedText = await generateContent(type, title, ingredients, tone, targetAudience);
+    // Call the asynchronous Google Gemini text generator with full context
+    const generatedText = await generateContent(type, title, ingredients, tone, targetAudience, description, channel);
 
     // Create and save document with the authenticated userId attached
     const newItem = await ContentItem.create({
@@ -126,7 +126,8 @@ const createContent = async (req, res, next) => {
       description: description || "",
       ingredients: ingredients || "",
       targetAudience: targetAudience || "",
-      tone: tone || "Engaging",
+      tone: tone || "Sensory & Gourmet",
+      channel: channel || "",
       generatedText,
       status: "draft", // Default to draft upon creation
       userId: req.user.id // Associate content item with the authenticated user

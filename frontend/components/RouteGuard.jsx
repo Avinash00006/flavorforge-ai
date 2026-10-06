@@ -17,16 +17,16 @@ export default function RouteGuard({ children }) {
 
   useEffect(() => {
     // Check local storage for JWT auth token
-    const token = localStorage.getItem('token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     
-    if (!token) {
+    if (!token || token === 'null' || token === 'undefined') {
       setAuthorized(false);
-      // Redirect unauthenticated user back to login page
-      router.push('/login');
+      // Replace URL without building up duplicate history stack
+      router.replace('/login');
     } else {
       setAuthorized(true);
     }
-  }, [router]);
+  }, []);
 
   // Render a clean, animated loading layout while client state resolves
   if (!authorized) {

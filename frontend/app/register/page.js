@@ -15,6 +15,8 @@ import toast from 'react-hot-toast';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
+import { BoltIcon } from '../../components/Icons';
 
 // Backend base URL configuration
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
@@ -73,20 +75,23 @@ export default function RegisterPage() {
       <main className="min-h-screen flex items-center justify-center px-6">
         
         {/* Registration Card */}
-        <div className="w-full max-w-md p-8 rounded-xl bg-white dark:bg-zinc-900/40
-                        border border-zinc-200 dark:border-zinc-800 shadow-sm
-                        transition-all duration-300">
+        <div className="w-full max-w-md p-8 rounded-2xl bg-white/80 dark:bg-stone-900/70
+                        border border-stone-200/80 dark:border-stone-800/80 shadow-xl shadow-amber-500/5
+                        backdrop-blur-xl transition-all duration-300">
           
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-zinc-950 dark:text-zinc-50">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white mx-auto mb-3 shadow-md shadow-orange-500/20">
+              <BoltIcon className="w-6 h-6 text-white" />
+            </div>
+            <h1 className="text-3xl font-black text-stone-950 dark:text-stone-50 tracking-tight">
               Create Account
             </h1>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-2">
-              Join FlavorForge AI and generate smart product descriptions
+            <p className="text-sm text-stone-600 dark:text-stone-400 mt-2">
+              Join FlavorForge AI and forge sensory food narratives
             </p>
           </div>
 
-          <form onSubmit={handleRegister} className="space-y-5">
+          <form onSubmit={handleRegister} className="space-y-4">
             {/* Name Input */}
             <Input
               label="Full Name"
@@ -121,7 +126,7 @@ export default function RegisterPage() {
             <Button
               type="submit"
               variant="primary"
-              className="w-full py-2.5 mt-2 flex justify-center items-center"
+              className="w-full py-3 mt-2 flex justify-center items-center font-semibold"
               disabled={loading}
             >
               {loading ? (
@@ -133,19 +138,21 @@ export default function RegisterPage() {
           </form>
 
           {/* Redirection Link */}
-          <p className="text-center text-sm text-zinc-500 dark:text-zinc-400 mt-6">
+          <p className="text-center text-sm text-stone-500 dark:text-stone-400 mt-6">
             Already have an account?{' '}
             <Link
               href="/login"
-              className="font-medium text-orange-500 hover:text-orange-600 transition-colors"
+              className="font-semibold text-amber-600 dark:text-amber-400 hover:text-orange-600 transition-colors"
             >
-              Log In
+              Sign In
             </Link>
           </p>
 
         </div>
 
       </main>
+
+      <Footer />
     </>
   );
 }
