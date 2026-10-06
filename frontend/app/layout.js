@@ -26,8 +26,12 @@ export default function RootLayout({ children }) {
       lang="en"
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-[#fbf9f5] dark:bg-[#0f0e0c] text-stone-900 dark:text-stone-100 transition-colors duration-300 relative">
+      <body
+        className="min-h-full flex flex-col bg-[#fbf9f5] dark:bg-[#0f0e0c] text-stone-900 dark:text-stone-100 transition-colors duration-300 relative"
+        suppressHydrationWarning
+      >
         <BackgroundDecor />
         <ErrorBoundary>
           {children}

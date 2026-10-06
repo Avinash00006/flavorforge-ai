@@ -1,15 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 /**
  * BackgroundDecor Component
  * 
  * Provides an atmospheric, culinary-focused background for FlavorForge AI.
- * Pure server-rendered JSX component for zero hydration overhead and zero layout shift:
+ * Client-mounted component ensuring zero hydration mismatch with SSR, theme scripts, or browser extensions:
  * - Light Mode: Carrara marble, soft morning golden warmth & light vapor.
  * - Dark Mode: Volcanic slate, glowing saffron embers & flavor chemistry nodes.
  */
 export default function BackgroundDecor() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div
       aria-hidden="true"
+      suppressHydrationWarning
       className="fixed inset-0 -z-10 pointer-events-none overflow-hidden select-none"
     >
       {/* ☀️ Light Mode Background Image */}
